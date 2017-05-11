@@ -61,19 +61,19 @@ public class MergeSort {
         
         int leftMin,leftMax,rightMin,rightMax;
         int next;
-        T temp[] = null;// new T[array.length];
-        for(int i=1; i<array.length; i*=2){
+        Comparable temp[] = new Comparable[array.length];
+        for(int span=1; span<array.length; span*=2){
             
-            for(leftMin = 0;leftMin < array.length-i; leftMin = rightMax){
-                leftMax = leftMin +i;
-                rightMin = leftMax;
-                rightMax = leftMax +i;
+            for(leftMin = 0;leftMin < array.length-span; leftMin = rightMax){
+                leftMax = leftMin +span;
+                rightMin = leftMax+1;
+                rightMax = leftMax +span;
                 
                 if(array.length < rightMax) {
-                    rightMax = array.length;
+                    rightMax = array.length-1;
                 }
                 
-                for(next = 0;leftMin < leftMax && rightMin<rightMax; ++next) {
+                for(next = 0;leftMin <= leftMax && rightMin <= rightMax; ++next) {
                     temp[next] = array[leftMin].compareTo(array[rightMin]) > 0 ? array[leftMin++] : array[rightMin++];
                 }
                 
@@ -82,7 +82,7 @@ public class MergeSort {
                 }
                 
                 while(next >0){
-                    array[--rightMin] = temp[--next];                   
+                    array[--rightMin] = temp[--next];
                 }
             }
         }
